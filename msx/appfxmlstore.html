@@ -18,7 +18,8 @@
 
 /******************************************************************************/
 
-var apidomain="http://msx.appfxml.com"; // PHP API; static mirror assets via start/content on git.appfxml.com
+var apidomain="http://git.appfxml.com";
+var phpdomain="http://msx.appfxml.com"; // dynamic PHP only
 var logger = new TVXLogger();
 function parserstr(pars,s){
 	var x1=-1,x2=-1;
@@ -503,7 +504,7 @@ function getAppById(id) {
 						opts = {
 							icon: "msx-white:app-registration",
 							label: "Редактировать",
-							action: "content:" + apidomain + "/msx/add.json?payd[payd_appurl]=" +
+							action: "content:" + phpdomain + "/msx/add.json?payd[payd_appurl]=" +
 								encodeURIComponent(foundItem.action) +
 								"&payd[payd_appname]=" + encodeURIComponent(foundItem.label) +
 								"&payd[payd_appicon]=" + encodeURIComponent(foundItem.icon) +
@@ -598,7 +599,7 @@ function getAppById(id) {
 						"title":"Введите сервер MSX",
 						"playlist_url":"payd_msxurl",
 						"search_on":"Введите сервер MSX",
-						"parent_url":apidomain+"/msx/addmsx.json"}))
+						"parent_url":phpdomain+"/msx/addmsx.json"}))
                 }, {
                     icon: "msx-white:http",
                     label: "Ссылку на WEB-приложение",
@@ -606,7 +607,7 @@ function getAppById(id) {
 						"title":"Введите адрес с http",
 						"playlist_url":"payd_appurl",
 						"search_on":"Введите адрес web приложения",
-						"parent_url":apidomain+"/msx/add.json"}))
+						"parent_url":phpdomain+"/msx/add.json"}))
                 }]
             };
 			return callback(page);
@@ -627,7 +628,7 @@ function getAppById(id) {
 					lStorage.set("apps", myapps.join("|"));
 					
 					$.ajax({
-						url: apidomain + "/msx/index.php?urlinstall=" + encodeURIComponent(contentLink) + "&name=" + encodeURIComponent(id[3] || "No Label") + "&icon=" + encodeURIComponent(icon) + "&box_mac=" + box_mac
+						url: phpdomain + "/msx/index.php?urlinstall=" + encodeURIComponent(contentLink) + "&name=" + encodeURIComponent(id[3] || "No Label") + "&icon=" + encodeURIComponent(icon) + "&box_mac=" + box_mac
 					});
 					
 					TVXInteractionPlugin.success("Добавлено! " + contentLink);
@@ -664,7 +665,7 @@ function getAppById(id) {
 						lStorage.set("apps", myapps.join("|"));
 						
 						$.ajax({
-							url: apidomain + "/msx/index.php?urlinstall=" + encodeURIComponent(id[2]) + "&name=" + encodeURIComponent(id[3]) + "&icon=" + encodeURIComponent(icon) + "&box_mac=" + box_mac
+							url: phpdomain + "/msx/index.php?urlinstall=" + encodeURIComponent(id[2]) + "&name=" + encodeURIComponent(id[3]) + "&icon=" + encodeURIComponent(icon) + "&box_mac=" + box_mac
 						});
 						
 						TVXInteractionPlugin.success("Добавлено! " + id[2]);
@@ -689,7 +690,7 @@ function getAppById(id) {
 					],
 					function(action) {
 						if (action === "butinstall") {
-							var url = apidomain + "/msx/index.php?install=" + encodeURIComponent(app.action)+"&box_mac="+box_mac;
+							var url = phpdomain + "/msx/index.php?install=" + encodeURIComponent(app.action)+"&box_mac="+box_mac;
 							var label, tag = "";
 
 							if (myapps.indexOf(id[1]) >= 0) {
