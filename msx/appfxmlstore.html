@@ -346,7 +346,8 @@ function getAppById(id) {
 				  async: false,
 				  success: function(data)
 				  {
-					allapps=JSON.parse(data)||[];
+					// GitHub Pages: Content-Type application/json → jQuery already parsed
+					allapps=(typeof data==="string"?JSON.parse(data):data)||[];
 					//logger.debug(allapps);					
 				  },
 				  error: function (xhr, ajaxOptions, thrownError) {
